@@ -638,7 +638,7 @@ export interface Participation {
   id: number;
   client: number | IndividualAccount;
   course: number | Course;
-  status: 'pending' | 'enrolled' | 'paid' | 'completed';
+  status: 'pending' | 'enrolled';
   paymentStatus?: ('unpaid' | 'paid' | 'failed') | null;
   /**
    * Automatically set when exam is graded successfully

@@ -35,8 +35,6 @@ export const Participation: CollectionConfig = {
       options: [
         { label: 'Pending', value: 'pending' },
         { label: 'Enrolled', value: 'enrolled' },
-        { label: 'Paid', value: 'paid' }, // For paid courses
-        { label: 'Completed', value: 'completed' },
       ],
       defaultValue: 'pending',
       required: true,

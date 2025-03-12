@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
   if (!rawCourseId || typeof rawCourseId !== 'string') {
     return NextResponse.json({ error: 'Invalid courseId' }, { status: 400 })
   }
+
   const courseId = rawCourseId
   // Get the authenticated user using your getClient action
   const user = await getClient()
@@ -41,7 +42,26 @@ export async function POST(req: NextRequest) {
   })
 
   if (existingEnrollment.totalDocs > 0) {
-    return NextResponse.json({ error: 'Already enrolled' }, { status: 400 })
+    const participation = existingEnrollment.docs[0]
+    const currentStatus = participation.status
+
+    if (currentStatus === 'pending') {
+      return NextResponse.json(
+        {
+          message: 'Your enrollment is pending approval.',
+          participation,
+        },
+        { status: 200 },
+      )
+    } else if (currentStatus === 'enrolled') {
+      return NextResponse.json(
+        {
+          message: 'Already Enrolled',
+          participation,
+        },
+        { status: 200 },
+      )
+    }
   }
 
   // Determine initial status based on course type
